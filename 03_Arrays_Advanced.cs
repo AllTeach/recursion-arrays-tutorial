@@ -7,19 +7,41 @@ using System;
 /// זה הרבה יותר נוח וטבעי
 /// 
 
-class ArraysAdvanced
+class Program
 {
+    static void Main()
+    {
+        Console.WriteLine("═══════════════════════════════════════════════════");
+        Console.WriteLine("🎓 03_Arrays_Advanced.cs - Wrapper Functions");
+        Console.WriteLine("═══════════════════════════════════════════════════\n");
+
+        Console.WriteLine("💡 Wrapper Functions - מה זה?");
+        Console.WriteLine("  פונקציה ציבורית שקל להשתמש בה");
+        Console.WriteLine("  היא קוראת לפונקציית עזר (Helper) פנימית\n");
+
+        Console.WriteLine("🎯 יתרונות Wrapper:");
+        Console.WriteLine("  ✅ המשתמש לא צריך לדעת על אינדקס");
+        Console.WriteLine("  ✅ API נקי וקל לשימוש");
+        Console.WriteLine("  ✅ אנחנו יכולים להוסיף בדיקות (validation)");
+        Console.WriteLine("  ✅ נוח להשנות את ה-implementation\n");
+
+        Console.WriteLine("📝 דוגמה:");
+        Console.WriteLine("  بدון Wrapper: PrintArray(nums, 0);  // צריך להעביר 0");
+        Console.WriteLine("  עם Wrapper:   PrintArray(nums);    // קל וטבעי!\n");
+
+        Console.WriteLine("👉 קרא את הקוד - כל דוגמה מוסברת!");
+        Console.WriteLine("👉 לצעד הבא: 04_Exercises_* (תרגילים)");
+    }
+
     // ============================================
     // דוגמה 1: Wrapper ל-הדפסת מערך
     // ============================================
     
-    // זו הפונקציה שהמשתמש קורא - קל מאוד!
     public static void PrintArray(int[] arr)
     {
         PrintArrayHelper(arr, 0);
     }
 
-    // זו הפונקציה הפנימית שמכינה את ה-index
     private static void PrintArrayHelper(int[] arr, int index)
     {
         if (index == arr.Length)
@@ -30,11 +52,6 @@ class ArraysAdvanced
         Console.Write(arr[index] + " ");
         PrintArrayHelper(arr, index + 1);
     }
-
-    // שימוש:
-    // int[] nums = { 1, 2, 3, 4, 5 };
-    // PrintArray(nums); // הרבה יותר קל!
-
 
     // ============================================
     // דוגמה 2: Wrapper ל-סכום
@@ -51,11 +68,6 @@ class ArraysAdvanced
             return 0;
         return arr[index] + SumArrayHelper(arr, index + 1);
     }
-
-    // שימוש:
-    // int[] nums = { 1, 2, 3, 4, 5 };
-    // int sum = SumArray(nums); // החזר 15
-
 
     // ============================================
     // דוגמה 3: Wrapper ל-מציאת מקסימום
@@ -78,11 +90,6 @@ class ArraysAdvanced
         return arr[index] > maxOfRest ? arr[index] : maxOfRest;
     }
 
-    // שימוש:
-    // int[] nums = { 5, 2, 9, 1, 7 };
-    // int max = FindMax(nums); // החזר 9
-
-
     // ============================================
     // דוגמה 4: Wrapper ל-חיפוש
     // ============================================
@@ -102,11 +109,6 @@ class ArraysAdvanced
         
         return ContainsHelper(arr, index + 1, target);
     }
-
-    // שימוש:
-    // int[] nums = { 3, 7, 2, 9, 1 };
-    // bool found = Contains(nums, 7); // החזר true
-
 
     // ============================================
     // דוגמה 5: Wrapper ל-ספירת אלמנטים שמקיימים תנאי
@@ -128,11 +130,6 @@ class ArraysAdvanced
             return CountEvenHelper(arr, index + 1);
     }
 
-    // שימוש:
-    // int[] nums = { 1, 2, 3, 4, 5, 6 };
-    // int count = CountEvenNumbers(nums); // החזר 3
-
-
     // ============================================
     // דוגמה 6: Wrapper ל-בדיקה "האם כל אלמנטים מקיימים"
     // ============================================
@@ -152,14 +149,6 @@ class ArraysAdvanced
         
         return AllEvenHelper(arr, index + 1);
     }
-
-    // שימוש:
-    // int[] nums1 = { 2, 4, 6, 8 };
-    // bool result1 = AllEven(nums1); // החזר true
-    // 
-    // int[] nums2 = { 2, 4, 5, 8 };
-    // bool result2 = AllEven(nums2); // החזר false
-
 
     // ============================================
     // דוגמה 7: Wrapper ל-בדיקה "האם קיים אלמנט שמקיים"
@@ -181,11 +170,6 @@ class ArraysAdvanced
         return AnyGreaterThan5Helper(arr, index + 1);
     }
 
-    // שימוש:
-    // int[] nums = { 1, 2, 10 };
-    // bool result = AnyGreaterThan5(nums); // החזר true
-
-
     // ============================================
     // דוגמה 8: Wrapper ל-מציאת אינדקס
     // ============================================
@@ -205,18 +189,4 @@ class ArraysAdvanced
         
         return IndexOfHelper(arr, index + 1, target);
     }
-
-    // שימוש:
-    // int[] nums = { 3, 7, 2, 9, 1 };
-    // int idx = IndexOf(nums, 9); // החזר 3
-
-
-    // ============================================
-    // 🎯 יתרונות של Wrapper Functions:
-    // ============================================
-    // 1. המשתמש לא צריך לדעת על אינדקס
-    // 2. קל וישר - PublicAPI
-    // 3. אנחנו יכולים להוסיף בדיקות ב-Wrapper
-    // 4. מסתירה את הפרטים של ה-implementation
-    // 5. אם נשנה את ה-implementation לאחר - רק ה-Helper משתנה
 }

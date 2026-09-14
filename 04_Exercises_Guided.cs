@@ -7,19 +7,37 @@ using System;
 /// הקוד מודגם בצורה בסיסית, אתם צריכים להשלים
 /// 
 
-class ExercisesGuided
+class Program
 {
+    static void Main()
+    {
+        Console.WriteLine("═══════════════════════════════════════════════════");
+        Console.WriteLine("🏋️ 04_Exercises_Guided.cs - תרגילים עם Wrapper");
+        Console.WriteLine("═══════════════════════════════════════════════════\n");
+
+        Console.WriteLine("🎯 8 תרגילים - עם Wrapper Functions\n");
+        Console.WriteLine("רמה זו מתאימה אם:");
+        Console.WriteLine("  ✅ אתה מבין Wrapper Functions");
+        Console.WriteLine("  ✅ אתה רוצה API נקי וקל לשימוש");
+        Console.WriteLine("  ✅ אתה מוכן אתגר גדול יותר\n");
+
+        Console.WriteLine("תרגילים:");
+        Console.WriteLine("  1. הדפסת מערך בהפוכה סדר");
+        Console.WriteLine("  2. ספירת אלמנטים גדולים מ-X");
+        Console.WriteLine("  3. סכום אלמנטים שמקיימים תנאי");
+        Console.WriteLine("  4. בדיקה - האם קיים אלמנט חיובי?");
+        Console.WriteLine("  5. חיפוש כל המיקומים של value");
+        Console.WriteLine("  6. בדיקה - האם המערך ממויין?");
+        Console.WriteLine("  7. הדפסת אלמנטים זוגיים בלבד");
+        Console.WriteLine("  8. מציאת הממוצע של מערך\n");
+
+        Console.WriteLine("👉 השלם את ה-TODO בכל פונקציה");
+        Console.WriteLine("👉 לסיום: 05_Exercises_Full.cs (פתרונות)");
+    }
+
     // ============================================
     // תרגיל 1: הדפסת מערך בהפוכה סדר
     // ============================================
-    // תיאור: הדפס את כל אלמנטי המערך מהסוף להתחלה
-    // דוגמה: [1, 2, 3] -> "3 2 1"
-    // 
-    // הכוונה:
-    // - התחל מ-index בסוף המערך
-    // - עבור אחורה (index--)
-    // - תנאי עצירה: כשindex < 0
-
     public static void PrintArrayReverse(int[] arr)
     {
         PrintArrayReverseHelper(arr, arr.Length - 1);
@@ -28,21 +46,11 @@ class ExercisesGuided
     private static void PrintArrayReverseHelper(int[] arr, int index)
     {
         // TODO: כתבו את קוד הרקורסיה כאן
-        // רמז: תנאי עצירה, הדפסה, רקורסיה
     }
-
 
     // ============================================
     // תרגיל 2: ספירת אלמנטים גדולים מ-X
     // ============================================
-    // תיאור: כמה אלמנטים בתוך המערך גדולים מהערך target?
-    // דוגמה: [1, 5, 3, 8, 2], target=4 -> החזר 2 (5 ו-8)
-    // 
-    // הכוונה:
-    // - בדוק אם האלמנט הנוכחי גדול מ-target
-    // - אם כן - ספור אותו (1 + רקורסיה)
-    // - אם לא - בדוק את השאר (0 + רקורסיה)
-
     public static int CountGreaterThan(int[] arr, int target)
     {
         return CountGreaterThanHelper(arr, 0, target);
@@ -51,20 +59,12 @@ class ExercisesGuided
     private static int CountGreaterThanHelper(int[] arr, int index, int target)
     {
         // TODO: כתבו את קוד הרקורסיה כאן
+        return 0;
     }
-
 
     // ============================================
     // תרגיל 3: סכום רק של אלמנטים שמקיימים תנאי
     // ============================================
-    // תיאור: סכום כל האלמנטים שגדולים מ-5
-    // דוגמה: [2, 7, 3, 9, 4, 8] -> החזר 24 (7+9+8)
-    // 
-    // הכוונה:
-    // - אם אלמנט > 5 -> כללו אותו בסכום
-    // - אחרת -> דלג עליו
-    // - המשך עם השאר
-
     public static int SumGreaterThan5(int[] arr)
     {
         return SumGreaterThan5Helper(arr, 0);
@@ -73,21 +73,12 @@ class ExercisesGuided
     private static int SumGreaterThan5Helper(int[] arr, int index)
     {
         // TODO: כתבו את קוד הרקורסיה כאן
+        return 0;
     }
-
 
     // ============================================
     // תרגיל 4: בדיקה - האם יש למעט אלמנט אחד חיובי?
     // ============================================
-    // תיאור: תחזור true אם קיים אלמנט אחד לפחות שגדול מ-0
-    // דוגמה: [-1, -5, 3, -2] -> true (כי יש 3)
-    // דוגמה: [-1, -5, -3] -> false (אף אלמנט חיובי)
-    // 
-    // הכוונה:
-    // - אם האלמנט הנוכחי חיובי -> החזר true מיד!
-    // - אחרת -> בדוק את השאר
-    // - אם סיימנו את המערך ללא תשובה -> החזר false
-
     public static bool HasPositive(int[] arr)
     {
         return HasPositiveHelper(arr, 0);
@@ -96,19 +87,12 @@ class ExercisesGuided
     private static bool HasPositiveHelper(int[] arr, int index)
     {
         // TODO: כתבו את קוד הרקורסיה כאן
+        return false;
     }
-
 
     // ============================================
     // תרגיל 5: חיפוש בדיוק כל הערך X
     // ============================================
-    // תיאור: מצא את כל המיקומים של value בתוך המערך
-    // דוגמה: [1, 2, 3, 2, 5], value=2 -> הדפס "2 ב-אינדקס 1, 2 ב-אינדקס 3"
-    // 
-    // הכוונה:
-    // - אם נמצא את הערך -> הדפס את המיקום
-    // - המשך תמיד עם השאר
-
     public static void FindAllOccurrences(int[] arr, int value)
     {
         FindAllOccurrencesHelper(arr, 0, value);
@@ -119,20 +103,9 @@ class ExercisesGuided
         // TODO: כתבו את קוד הרקורסיה כאן
     }
 
-
     // ============================================
     // תרגיל 6: בדיקה - האם המערך ממויין (עולה)?
     // ============================================
-    // תיאור: בדוק אם כל אלמנט קטן מהבא
-    // דוגמה: [1, 3, 5, 7] -> true (ממויין)
-    // דוגמה: [1, 3, 2, 7] -> false (לא ממויין)
-    // 
-    // הכוונה:
-    // - השווה את האלמנט הנוכחי עם הבא
-    // - אם הנוכחי > הבא -> החזר false מיד
-    // - אחרת -> בדוק את השאר
-    // - תנאי עצירה: כשהגענו לאלמנט האחרון (ללא "בא")
-
     public static bool IsSorted(int[] arr)
     {
         return IsSortedHelper(arr, 0);
@@ -141,20 +114,12 @@ class ExercisesGuided
     private static bool IsSortedHelper(int[] arr, int index)
     {
         // TODO: כתבו את קוד הרקורסיה כאן
+        return false;
     }
-
 
     // ============================================
     // תרגיל 7: הדפסת אלמנטים זוגיים בלבד
     // ============================================
-    // תיאור: הדפס רק את אלמנטים שמתחלקים ב-2
-    // דוגמה: [1, 2, 3, 4, 5, 6] -> הדפס "2 4 6"
-    // 
-    // הכוונה:
-    // - אם אלמנט זוגי -> הדפס אותו
-    // - אחרת -> דלג עליו
-    // - המשך עם השאר
-
     public static void PrintEvenNumbers(int[] arr)
     {
         PrintEvenNumbersHelper(arr, 0);
@@ -165,19 +130,9 @@ class ExercisesGuided
         // TODO: כתבו את קוד הרקורסיה כאן
     }
 
-
     // ============================================
     // תרגיל 8: מציאת ממוצע של מערך
     // ============================================
-    // תיאור: חשבון את ממוצע כל האלמנטים
-    // דוגמה: [2, 4, 6, 8] -> החזר 5.0
-    // 
-    // הכוונה:
-    // - אתה צריך: סכום + ספירה
-    // - סכום - עם רקורסיה
-    // - ספירה - עם רקורסיה או arr.Length
-    // - ממוצע = סכום / ספירה
-
     public static double AverageArray(int[] arr)
     {
         if (arr.Length == 0)
@@ -190,15 +145,6 @@ class ExercisesGuided
     private static int SumArrayHelper(int[] arr, int index)
     {
         // TODO: כתבו סכום רקורסיבי כאן
+        return 0;
     }
-
-
-    // ============================================
-    // 💡 טיפים כלליים לתרגילים:
-    // ============================================
-    // 1. ודא שהגדרת תנאי עצירה קודם!
-    // 2. חשוב על "הנחה" - מה אנחנו מניחים שכבר עשינו
-    // 3. בדוק edge cases: מערך ריק, מערך בגודל 1
-    // 4. אם טעית - הוסף Console.WriteLine בכמה מקומות
-    //    כדי לראות מה קרה
 }
