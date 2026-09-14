@@ -1,7 +1,7 @@
 using System;
 
 /// ============================================
-/// 📚 שלב 1: הסבר תאורטי - רקורסיה על מערכים
+/// 📚 שלב 1: הסבר תאורטי - עם שתי הגישות
 /// ============================================
 /// 
 /// מה ההבדל בין רקורסיה על מספר שלם לבין רקורסיה על מערך?
@@ -21,178 +21,190 @@ using System;
 class Theory
 {
     // ============================================
-    // דוגמה 1: הדפסת מערך מהתחלה לסוף
+    // 🎯 החוזה הרקורסיבי על מערך:
     // ============================================
-    // מטרה: להדפיס כל אלמנט במערך
-    // תנאי עצירה: כשהאינדקס == length
-    // הנחה: אנחנו מניחים שהפונקציה כבר הדפיסה מ-0 עד index-1
-    
-    public static void PrintArrayForward(int[] arr, int index)
+    // arr[i]: התא הנוכחי עליו מוטלת האחריות של הזימון הנוכחי
+    // הקריאה הרקורסיבית (i + 1): פתרון אותה הבעיה בדיוק עבור שאר המערך
+
+    // ============================================
+    // ⭐ שתי גישות לתנאי עצירה בפעולות VOID:
+    // ============================================
+
+    // ============================================
+    // גישה א': יציאה יזומה עם return; ריק
+    // ============================================
+    // בדיקה מפורשת: "האם חרגנו מהמערך?"
+    // אם כן - יוצאים מיידית
+    // אם לא - ממשיכים
+
+    public static void PrintArrayV1_ReturnEmpty(int[] arr, int index)
     {
-        // תנאי עצירה - סיימנו את כל המערך
+        // תנאי עצירה מפורש
         if (index == arr.Length)
         {
             return; // יצאנו מהרקורסיה
         }
 
-        // צעד רקורסיבי: הדפס את האלמנט הנוכחי
         Console.Write(arr[index] + " ");
+        PrintArrayV1_ReturnEmpty(arr, index + 1);
+    }
 
-        // וקרא רקורסיבית לאלמנט הבא
-        PrintArrayForward(arr, index + 1);
+    // ============================================
+    // גישה ב': תנאי לביצוע (ללא return)
+    // ============================================
+    // עוטפים את כל גוף הפעולה ב-if (i < arr.Length)
+    // כל עוד התנאי מתקיים - עושים עבודה
+    // כשמגיעים לקצה - התנאי נכשל וחוזרים למעלה
+
+    public static void PrintArrayV2_IfCondition(int[] arr, int index)
+    {
+        // תנאי לקיום העבודה
+        if (index < arr.Length)
+        {
+            Console.Write(arr[index] + " ");
+            PrintArrayV2_IfCondition(arr, index + 1);
+        }
+        // כשהתנאי לא מתקיים - הפעולה מסתיימת מאליה
+    }
+
+    // שימוש לשתי הגישות:
+    // int[] myArray = { 1, 2, 3, 4, 5 };
+    // PrintArrayV1_ReturnEmpty(myArray, 0);
+    // PrintArrayV2_IfCondition(myArray, 0);
+    // שתיהן מדפיסות: 1 2 3 4 5
+
+
+    // ============================================
+    // דוגמה 1: הדפסת מערך מהתחלה לסוף (הלוך)
+    // ============================================
+
+    public static void PrintForwardV1(int[] arr, int index)
+    {
+        if (index == arr.Length)
+            return;
+
+        Console.Write(arr[index] + " ");
+        PrintForwardV1(arr, index + 1);
+    }
+
+    public static void PrintForwardV2(int[] arr, int index)
+    {
+        if (index < arr.Length)
+        {
+            Console.Write(arr[index] + " ");
+            PrintForwardV2(arr, index + 1);
+        }
     }
 
     // דוגמה שימוש:
     // int[] myArray = { 1, 2, 3, 4, 5 };
-    // PrintArrayForward(myArray, 0);
+    // PrintForwardV1(myArray, 0);
+    // PrintForwardV2(myArray, 0);
     // פלט: 1 2 3 4 5
 
 
     // ============================================
-    // דוגמה 2: הדפסת מערך מסוף להתחלה
+    // דוגמה 2: הדפסת מערך מסוף להתחלה (חזור)
     // ============================================
-    // מטרה: להדפיס כל אלמנט באופן הפוך
-    // תנאי עצירה: כשהאינדקס < 0
-    // הנחה: אנחנו מניחים שהפונקציה כבר הדפיסה מ-length-1 עד index+1
-    
-    public static void PrintArrayBackward(int[] arr, int index)
+
+    public static void PrintBackwardV1(int[] arr, int index)
     {
-        // תנאי עצירה - יצאנו מהמערך משמאל
-        if (index < 0)
-        {
+        if (index == arr.Length)
             return;
-        }
 
-        // צעד רקורסיבי: הדפס את האלמנט הנוכחי
+        PrintBackwardV1(arr, index + 1);
         Console.Write(arr[index] + " ");
+    }
 
-        // וקרא רקורסיבית לאלמנט הקודם
-        PrintArrayBackward(arr, index - 1);
+    public static void PrintBackwardV2(int[] arr, int index)
+    {
+        if (index < arr.Length)
+        {
+            PrintBackwardV2(arr, index + 1);
+            Console.Write(arr[index] + " ");
+        }
     }
 
     // דוגמה שימוש:
     // int[] myArray = { 1, 2, 3, 4, 5 };
-    // PrintArrayBackward(myArray, myArray.Length - 1);
+    // PrintBackwardV1(myArray, 0);
+    // PrintBackwardV2(myArray, 0);
     // פלט: 5 4 3 2 1
 
 
     // ============================================
-    // דוגמה 3: סכום כל האלמנטים במערך
+    // דוגמה 3: הדפסה בשתי הכיוונים (הלוך וחזור - "מראה")
     // ============================================
-    // מטרה: להחזיר את הסכום של כל האלמנטים
-    // תנאי עצירה: כשהאינדקס == length, החזר 0
-    // הנחה: אנחנו מניחים שהפונקציה כבר סיכמה מ-0 עד index-1
-    
+
+    public static void PrintMirrorV1(int[] arr, int index)
+    {
+        if (index == arr.Length)
+            return;
+
+        Console.Write(arr[index] + " "); // בהלוך
+        PrintMirrorV1(arr, index + 1);
+        Console.Write(arr[index] + " "); // בחזור
+    }
+
+    public static void PrintMirrorV2(int[] arr, int index)
+    {
+        if (index < arr.Length)
+        {
+            Console.Write(arr[index] + " "); // בהלוך
+            PrintMirrorV2(arr, index + 1);
+            Console.Write(arr[index] + " "); // בחזור
+        }
+    }
+
+    // דוגמה שימוש:
+    // int[] myArray = { 1, 2, 3 };
+    // PrintMirrorV1(myArray, 0);
+    // PrintMirrorV2(myArray, 0);
+    // פלט: 1 2 3 3 2 1
+
+
+    // ============================================
+    // דוגמה 4: סכום כל האלמנטים במערך
+    // ============================================
+
     public static int SumArray(int[] arr, int index)
     {
         // תנאי עצירה - סיימנו את כל המערך
         if (index == arr.Length)
         {
-            return 0; // החזר 0 - הרי סיימנו וסכמנו הכל
+            return 0;
         }
 
-        // צעד רקורסיבי:
-        // קח את האלמנט הנוכחי + סכום השאר
+        // צעד רקורסיבי: אלמנט נוכחי + סכום השאר
         return arr[index] + SumArray(arr, index + 1);
     }
 
     // דוגמה שימוש:
     // int[] myArray = { 1, 2, 3, 4, 5 };
     // int sum = SumArray(myArray, 0); // החזר 15
-    // פלט: 15
 
 
     // ============================================
-    // דוגמה 4: מציאת המקסימום במערך
+    // דוגמה 5: מציאת המקסימום במערך
     // ============================================
-    // מטרה: למצוא את הערך הגדול ביותר
-    // תנאי עצירה: כשהאינדקס == length-1, החזר את הערך הזה
-    // הנחה: אנחנו מניחים שהפונקציה כבר מצאה מקסימום מ-index+1 עד סוף
-    
+
     public static int FindMax(int[] arr, int index)
     {
         // תנאי עצירה - הגענו לאלמנט האחרון
         if (index == arr.Length - 1)
         {
-            return arr[index]; // החזר אותו
+            return arr[index];
         }
 
-        // צעד רקורסיבי:
-        // קח את המקסימום של: הנוכחי או המקסימום של השאר
+        // צעד רקורסיבי: קח את המקסימום בין:
+        // האלמנט הנוכחי ל-מקסימום של השאר
         int maxOfRest = FindMax(arr, index + 1);
-        return Math.Max(arr[index], maxOfRest);
+        return arr[index] > maxOfRest ? arr[index] : maxOfRest;
     }
 
     // דוגמה שימוש:
     // int[] myArray = { 3, 7, 2, 9, 1 };
     // int max = FindMax(myArray, 0); // החזר 9
-    // פלט: 9
-
-
-    // ============================================
-    // דוגמה 5: בדיקה - האם כל אלמנטים זוגיים?
-    // ============================================
-    // מטרה: להחזיר true אם כל האלמנטים זוגיים, false אחרת
-    // תנאי עצירה: כשהאינדקס == length, החזר true
-    // הנחה: אנחנו מניחים שהפונקציה כבר בדקה מ-0 עד index-1
-    
-    public static bool AllEven(int[] arr, int index)
-    {
-        // תנאי עצירה 1 - סיימנו את כל המערך וכולם זוגיים
-        if (index == arr.Length)
-        {
-            return true;
-        }
-
-        // תנאי עצירה 2 - מצאנו אלמנט שאיננו זוגי
-        if (arr[index] % 2 != 0)
-        {
-            return false; // כלום לא צריך לבדוק עוד
-        }
-
-        // צעד רקורסיבי: בדוק את השאר
-        return AllEven(arr, index + 1);
-    }
-
-    // דוגמה שימוש:
-    // int[] myArray1 = { 2, 4, 6, 8 };
-    // bool result1 = AllEven(myArray1, 0); // החזר true
-    // 
-    // int[] myArray2 = { 2, 4, 5, 8 };
-    // bool result2 = AllEven(myArray2, 0); // החזר false
-
-
-    // ============================================
-    // דוגמה 6: בדיקה - האם קיים אלמנט גדול מ-5?
-    // ============================================
-    // מטרה: להחזיר true אם קיים לפחות אלמנט אחד גדול מ-5
-    // תנאי עצירה: כשהאינדקס == length, החזר false
-    // הנחה: אנחנו מניחים שלא מצאנו מ-0 עד index-1
-    
-    public static bool ExistsGreaterThan5(int[] arr, int index)
-    {
-        // תנאי עצירה 1 - סיימנו את כל המערך ולא מצאנו
-        if (index == arr.Length)
-        {
-            return false;
-        }
-
-        // תנאי עצירה 2 - מצאנו אלמנט שמקיים את התנאי
-        if (arr[index] > 5)
-        {
-            return true; // כלום לא צריך לבדוק עוד
-        }
-
-        // צעד רקורסיבי: בדוק את השאר
-        return ExistsGreaterThan5(arr, index + 1);
-    }
-
-    // דוגמה שימוש:
-    // int[] myArray1 = { 1, 2, 3 };
-    // bool result1 = ExistsGreaterThan5(myArray1, 0); // החזר false
-    // 
-    // int[] myArray2 = { 1, 2, 10 };
-    // bool result2 = ExistsGreaterThan5(myArray2, 0); // החזר true
 
 
     // ============================================
@@ -201,21 +213,19 @@ class Theory
     // 
     // כל פונקציה רקורסיבית על מערך צריכה:
     // 
-    // 1. קבלת פרמטרים: מערך + אינדקס (+ פרמטרים נוספים אם צריך)
+    // 1. קבלת פרמטרים: מערך + אינדקס (+ פרמטרים נוספים)
     // 
-    // 2. תנאי עצירה (Base Case):
-    //    - בדוק אם הגענו לסוף המערך
-    //    - או אם וצריך לעצור מיד
-    //    - החזר ערך מתאים (ללא רקורסיה)
+    // 2. תנאי עצירה (Base Case) - בחרו אחת מ-2 גישות:
+    //    גישה א': if (condition) return [value];
+    //    גישה ב': if (condition) { [body] }
     // 
     // 3. צעד רקורסיבי (Recursive Step):
-    //    - עשה משהו עם האלמנט הנוכחי
-    //    - קרא לעצמך עם אינדקס ש"קדם אל העצירה"
+    //    - עשו משהו עם האלמנט הנוכחי
+    //    - קראו לעצמכם עם index ש"קדם אל העצירה"
     //    - ממשיכים עד שנגיעו לתנאי עצירה
     // 
-    // 4. חשוב! - הנחה:
+    // 4. חשוב! - הנחה רקורסיבית:
     //    - אנחנו לא בודקים את כל המערך בראש
     //    - אנחנו מניחים שהפונקציה עובדת בחלק "הנותר"
-    //    - ואנחנו מטפלים רק בחלק הנוכחי
-
+    //    - ואנחנו מטפלים רק בחלק הנוכחי בלבד
 }
